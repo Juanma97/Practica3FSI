@@ -12,6 +12,7 @@ def one_hot(x, n):
     :param n: number of bits
     :return: one hot code
     """
+
     o_h = np.zeros(n)
     o_h[x] = 1
     return tf.convert_to_tensor(o_h, dtype=tf.float32)
@@ -25,52 +26,32 @@ batch_size = 4
 #       DATA SOURCE
 #
 # --------------------------------------------------
+def dataSource(paths, batch_size):
+    min_after_dequeue = 10
+    capacity = min_after_dequeue + 3 * batch_size
 
-filenames0 = tf.train.match_filenames_once("data3/0/*.jpg")
-filenames1 = tf.train.match_filenames_once("data3/2/*.jpg")
-filenames2 = tf.train.match_filenames_once("data3/1/*.jpg")
+    example_batch_list = []
+    label_batch_list = []
 
+    for i, p in enumerate(paths):
+        filename = tf.train.match_filenames_once(p)
+        filename_queue = tf.train.string_input_producer(filename, shuffle=False)
+        reader = tf.WholeFileReader()
+        _, file_image = reader.read(filename_queue)
+        image, label = tf.image.decode_jpeg(file_image, channels=1), [one_hot(i, num_classes)]
+        image = tf.image.resize_image_with_crop_or_pad(image, 80, 140)
+        image = tf.reshape(image, [80, 140, 1])
+        image = tf.to_float(image) / 255. - 0.5
+        example_batch, label_batch = tf.train.shuffle_batch([image, label], batch_size=batch_size, capacity=capacity,
+                                                            min_after_dequeue=min_after_dequeue)
+        example_batch_list.append(example_batch)
+        label_batch_list.append(label_batch)
 
-filename_queue0 = tf.train.string_input_producer(filenames0, shuffle=False)
-filename_queue1 = tf.train.string_input_producer(filenames1, shuffle=False)
-filename_queue2 = tf.train.string_input_producer(filenames2, shuffle=False)
+    example_batch = tf.concat(values=example_batch_list, axis=0)
+    label_batch = tf.concat(values=label_batch_list, axis=0)
 
-reader0 = tf.WholeFileReader()
-reader1 = tf.WholeFileReader()
-reader2 = tf.WholeFileReader()
+    return example_batch, label_batch
 
-key0, file_image0 = reader0.read(filename_queue0)
-key1, file_image1 = reader1.read(filename_queue1)
-key2, file_image2 = reader2.read(filename_queue2)
-
-image0, label0 = tf.image.decode_jpeg(file_image0), [one_hot(0, num_classes)] # key0
-image0 = tf.reshape(image0, [80, 140, 1])
-
-image1, label1 = tf.image.decode_jpeg(file_image1, channels=1), [one_hot(1, num_classes)]  # key1
-image1 = tf.reshape(image1, [80, 140, 1])
-
-image2, label2 = tf.image.decode_jpeg(file_image2), [one_hot(2, num_classes)] # key0
-image2 = tf.reshape(image2, [80, 140, 1])
-
-image0 = tf.to_float(image0) / 256. - 0.5
-image1 = tf.to_float(image1) / 256. - 0.5
-image2 = tf.to_float(image2) / 256. - 0.5
-
-batch_size = 4
-min_after_dequeue = 10  # 10000
-capacity = min_after_dequeue + 3 * batch_size
-
-example_batch0, label_batch0 = tf.train.shuffle_batch([image0, label0], batch_size=batch_size, capacity=capacity,
-                                                      min_after_dequeue=min_after_dequeue)
-
-example_batch1, label_batch1 = tf.train.shuffle_batch([image1, label1], batch_size=batch_size, capacity=capacity,
-                                                      min_after_dequeue=min_after_dequeue)
-
-example_batch2, label_batch2 = tf.train.shuffle_batch([image2, label2], batch_size=batch_size, capacity=capacity,
-                                                      min_after_dequeue=min_after_dequeue)
-
-example_batch = tf.concat(values=[example_batch0, example_batch1, example_batch2], axis=0)
-label_batch = tf.concat(values=[label_batch0, label_batch1, label_batch2], axis=0)
 
 # --------------------------------------------------
 #
@@ -78,19 +59,30 @@ label_batch = tf.concat(values=[label_batch0, label_batch1, label_batch2], axis=
 #
 # --------------------------------------------------
 
-o1 = tf.layers.conv2d(inputs=example_batch, filters=32, kernel_size=3, activation=tf.nn.relu)
-o2 = tf.layers.max_pooling2d(inputs=o1, pool_size=2, strides=2)
-o3 = tf.layers.conv2d(inputs=o2, filters=64, kernel_size=3, activation=tf.nn.relu)
-o4 = tf.layers.max_pooling2d(inputs=o3, pool_size=2, strides=2)
+def myModel(X, reuse=False):
+    with tf.variable_scope('ConvNet', reuse=reuse):
+        o1 = tf.layers.conv2d(inputs=X, filters=32, kernel_size=3, activation=tf.nn.relu)
+        o2 = tf.layers.max_pooling2d(inputs=o1, pool_size=2, strides=2)
+        o3 = tf.layers.conv2d(inputs=o2, filters=64, kernel_size=3, activation=tf.nn.relu)
+        o4 = tf.layers.max_pooling2d(inputs=o3, pool_size=2, strides=2)
+        o5 = tf.layers.conv2d(inputs=o4, filters=64, kernel_size=3, activation=tf.nn.relu)
+        o6 = tf.layers.max_pooling2d(inputs=o5, pool_size=2, strides=2)
 
-h = tf.layers.dense(inputs=tf.layers.flatten(o4), units=5, activation=tf.nn.relu)
-y = tf.layers.dense(inputs=h, units=1, activation=tf.nn.softmax)
-
-cost = tf.reduce_sum(tf.square(y - label_batch))
-# cost = tf.reduce_mean(-tf.reduce_sum(label_batch * tf.log(y), reduction_indices=[1]))
-optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.01).minimize(cost)
+        h = tf.layers.dense(inputs=tf.layers.flatten(o6), units=5, activation=tf.nn.relu)
+        y = tf.layers.dense(inputs=h, units=1, activation=tf.nn.softmax)
+    return y
 
 
+example_batch_train, label_batch_train = dataSource(["data3/0/*.jpg", "data3/1/*.jpg", "data3/2/*.jpg"], batch_size=batch_size)
+example_batch_valid, label_batch_valid = dataSource(["data3/0/*.jpg", "data3/1/*.jpg", "data3/2/*.jpg"], batch_size=batch_size)
+
+example_batch_train_predicted = myModel(example_batch_train, reuse=False)
+example_batch_valid_predicted = myModel(example_batch_valid, reuse=True)
+
+cost = tf.reduce_sum(tf.square(example_batch_train_predicted - label_batch_train))
+cost_valid = tf.reduce_sum(tf.square(example_batch_valid_predicted - label_batch_valid))
+#cost = tf.reduce_mean(-tf.reduce_sum(label_batch * tf.log(y), reduction_indices=[1]))
+optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.05).minimize(cost)
 
 # --------------------------------------------------
 #
@@ -103,24 +95,26 @@ optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.01).minimize(cost)
 saver = tf.train.Saver()
 
 with tf.Session() as sess:
+    file_writer = tf.summary.FileWriter('./logs', sess.graph)
+
     sess.run(tf.local_variables_initializer())
     sess.run(tf.global_variables_initializer())
-
 
     # Start populating the filename queue.
     coord = tf.train.Coordinator()
     threads = tf.train.start_queue_runners(coord=coord, sess=sess)
 
-    for _ in range(200):
+    for _ in range(430):
         sess.run(optimizer)
         if _ % 20 == 0:
             print("Iter:", _, "---------------------------------------------")
-            print(sess.run(y))
-            print(sess.run(label_batch))
-            print("Error:", sess.run(cost))
+            print(sess.run(label_batch_valid))
+            print(sess.run(label_batch_train))
+            print(sess.run(example_batch_valid_predicted))
+            print("Error:", sess.run(cost_valid))
 
     save_path = saver.save(sess, "./tmp/model.ckpt")
     print("Model saved in file: %s" % save_path)
-            
+
     coord.request_stop()
     coord.join(threads)
