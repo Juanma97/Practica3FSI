@@ -64,7 +64,7 @@ def myModel(X, reuse=False):
 
 example_batch_train, label_batch_train = dataSource(["data3/0/*.jpg", "data3/1/*.jpg", "data3/2/*.jpg"], batch_size=batch_size)
 example_batch_valid, label_batch_valid = dataSource(["data3/0/valid/*.jpg", "data3/1/valid/*.jpg", "data3/2/valid/*.jpg"], batch_size=batch_size)
-example_batch_test, label_batch_test = dataSource(["data3/0/*.jpg", "data3/1/*.jpg", "data3/2/*.jpg"], batch_size=batch_size)
+example_batch_test, label_batch_test = dataSource(["data3/0/test/*.jpg", "data3/1/test/*.jpg", "data3/2/test/*.jpg"], batch_size=batch_size)
 
 example_batch_train_predicted = myModel(example_batch_train, reuse=False)
 example_batch_valid_predicted = myModel(example_batch_valid, reuse=True)
@@ -76,9 +76,9 @@ cost_test = tf.reduce_sum(tf.square(example_batch_test_predicted - tf.cast(label
 # cost = tf.reduce_mean(-tf.reduce_sum(label_batch * tf.log(y), reduction_indices=[1]))
 optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.01).minimize(cost)
 
-y = tf.placeholder(tf.float32, [None,3])
-y_ = tf.placeholder(tf.float32, [None,3])
-correct_prediction = tf.equal(tf.argmax(y,1),tf.argmax(y_,1))
+y = tf.placeholder(tf.float32, [None, 3])
+y_ = tf.placeholder(tf.float32, [None, 3])
+correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_,1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction,tf.float32))
 # --------------------------------------------------
 #
@@ -99,24 +99,23 @@ with tf.Session() as sess:
     # Start populating the filename queue.
     coord = tf.train.Coordinator()
     threads = tf.train.start_queue_runners(coord=coord, sess=sess)
-    error=50
-    error1=45
-    iter = 0
-    while abs(error-error1) > 0.005:
-        iter+=1
+    error = 50
+    newError = 45
+    epochs = 0
+    while abs(error - newError) > 0.01:
+        epochs += 1
         sess.run(optimizer)
-        if iter % 10 == 0:
-            print("Iter:", iter, "TRAINING")
+        if epochs % 10 == 0:
+            print("Iter:", epochs, "TRAINING")
             print(sess.run(label_batch_train))
             print(sess.run(example_batch_train_predicted))
-            #print("Error:", sess.run(cost_valid))
             print("VALIDATION")
             print(sess.run(label_batch_valid))
             print(sess.run(example_batch_valid_predicted))
             print("Error:", sess.run(cost_valid))
-        error=error1
-        error1=sess.run(cost_valid)
-        validationerror.append(error1)
+        error = newError
+        newError = sess.run(cost_valid)
+        validationerror.append(newError)
 
     save_path = saver.save(sess, "./tmp/model.ckpt")
     print("Model saved in file: %s" % save_path)
@@ -126,6 +125,6 @@ with tf.Session() as sess:
     plt.ylabel('Error')
     plt.xlabel('Epoch')
     training_line, = plt.plot(validationerror)
-    plt.savefig('grafica.png')
+    plt.savefig('graphics.png')
     coord.request_stop()
     coord.join(threads)
