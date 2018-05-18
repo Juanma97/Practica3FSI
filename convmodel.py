@@ -58,7 +58,7 @@ def myModel(X, reuse=False):
         o4 = tf.layers.max_pooling2d(inputs=o3, pool_size=2, strides=2)
 
         h = tf.layers.dense(inputs=tf.layers.flatten(o4), units=5, activation=tf.nn.relu)
-        y = tf.layers.dense(inputs=h, units=3, activation=tf.nn.softmax)
+        y = tf.layers.dense(inputs=h, units=num_classes, activation=tf.nn.softmax)
     return y
 
 
