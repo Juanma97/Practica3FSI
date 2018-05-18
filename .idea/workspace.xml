@@ -4,6 +4,8 @@
     <list default="true" id="10adaada-cceb-4ee7-82f3-b835aa3ad92b" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/convmodel.py" beforeDir="false" afterPath="$PROJECT_DIR$/convmodel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/convmodel_player.py" beforeDir="false" afterPath="$PROJECT_DIR$/convmodel_player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/events.out.tfevents.1526641949.MacBook-Pro-de-Juan.local" beforeDir="false" afterPath="$PROJECT_DIR$/logs/events.out.tfevents.1526641949.MacBook-Pro-de-Juan.local" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tmp/model.ckpt.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/model.ckpt.data-00000-of-00001" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tmp/model.ckpt.index" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/model.ckpt.index" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tmp/model.ckpt.meta" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/model.ckpt.meta" afterDir="false" />
@@ -16,18 +18,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/convolutiva$convmodel_player.coverage" NAME="convmodel_player Coverage Results" MODIFIED="1526565222721" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/convolutiva$convmodel.coverage" NAME="convmodel Coverage Results" MODIFIED="1526641947994" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/convolutiva$convmodel_player.coverage" NAME="convmodel_player Coverage Results" MODIFIED="1526644082369" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/convolutiva$convmodel.coverage" NAME="convmodel Coverage Results" MODIFIED="1526644018211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="convmodel.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/convmodel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1650">
-              <caret line="110" column="46" selection-start-line="110" selection-start-column="46" selection-end-line="110" selection-end-column="46" />
+            <state relative-caret-position="348">
+              <caret line="80" column="21" selection-start-line="80" selection-start-column="21" selection-end-line="80" selection-end-column="21" />
               <folding>
-                <element signature="e#64#87#0" expanded="true" />
+                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -36,8 +38,8 @@
       <file leaf-file-name="convmodel_player.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/convmodel_player.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="56">
-              <caret line="13" column="18" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
+            <state relative-caret-position="613">
+              <caret line="41" column="23" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
               <folding>
                 <element signature="e#64#82#0" expanded="true" />
               </folding>
@@ -73,10 +75,8 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="x" value="622" />
-    <option name="y" value="23" />
-    <option name="width" value="818" />
-    <option name="height" value="823" />
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -121,7 +121,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.convmodel">
+  <component name="RunManager" selected="Python.convmodel_player">
     <configuration name="convmodel" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="convolutiva" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -166,8 +166,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.convmodel" />
         <item itemvalue="Python.convmodel_player" />
+        <item itemvalue="Python.convmodel" />
       </list>
     </recent_temporary>
   </component>
@@ -228,7 +228,7 @@
         <state relative-caret-position="1260">
           <caret line="85" column="45" lean-forward="true" selection-start-line="85" selection-start-column="45" selection-end-line="85" selection-end-column="45" />
           <folding>
-            <element signature="e#64#87#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -248,7 +248,7 @@
         <state relative-caret-position="855">
           <caret line="57" selection-start-line="57" selection-end-line="57" />
           <folding>
-            <element signature="e#64#87#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -310,8 +310,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/convmodel_player.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="56">
-          <caret line="13" column="18" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
+        <state relative-caret-position="613">
+          <caret line="41" column="23" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
           <folding>
             <element signature="e#64#82#0" expanded="true" />
           </folding>
@@ -320,10 +320,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/convmodel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1650">
-          <caret line="110" column="46" selection-start-line="110" selection-start-column="46" selection-end-line="110" selection-end-column="46" />
+        <state relative-caret-position="348">
+          <caret line="80" column="21" selection-start-line="80" selection-start-column="21" selection-end-line="80" selection-end-column="21" />
           <folding>
-            <element signature="e#64#87#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
