@@ -57,7 +57,7 @@ def myModel(X, reuse=False):
         o3 = tf.layers.conv2d(inputs=o2, filters=64, kernel_size=3, activation=tf.nn.relu)
         o4 = tf.layers.max_pooling2d(inputs=o3, pool_size=2, strides=2)
 
-        h = tf.layers.dense(inputs=tf.reshape(o4, [batch_size * 3, 18 * 33 * 64]), units=5, activation=tf.nn.relu)
+        h = tf.layers.dense(inputs=tf.layers.flatten(o4), units=5, activation=tf.nn.relu)
         y = tf.layers.dense(inputs=h, units=3, activation=tf.nn.softmax)
     return y
 
