@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10adaada-cceb-4ee7-82f3-b835aa3ad92b" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/convmodel.py" beforeDir="false" afterPath="$PROJECT_DIR$/convmodel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grafica.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphics.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphics.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/events.out.tfevents.1526644493.MacBook-Pro-de-Juan.local" beforeDir="false" afterPath="$PROJECT_DIR$/logs/events.out.tfevents.1526644493.MacBook-Pro-de-Juan.local" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tmp/model.ckpt.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/model.ckpt.data-00000-of-00001" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tmp/model.ckpt.index" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/model.ckpt.index" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tmp/model.ckpt.meta" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/model.ckpt.meta" afterDir="false" />
@@ -24,13 +24,18 @@
       <file leaf-file-name="convmodel.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/convmodel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1055">
-              <caret line="127" column="25" selection-start-line="127" selection-start-column="25" selection-end-line="127" selection-end-column="25" />
+            <state relative-caret-position="218">
+              <caret line="97" column="16" lean-forward="true" selection-start-line="97" selection-start-column="16" selection-end-line="97" selection-end-column="16" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="graphics.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/graphics.png">
+          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
       <file leaf-file-name="convmodel_player.py" pinned="false" current-in-tab="false">
@@ -316,16 +321,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/graphics.png">
+    <entry file="file://$PROJECT_DIR$/grafica.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/grafica.png">
+    <entry file="file://$PROJECT_DIR$/graphics.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/convmodel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1055">
-          <caret line="127" column="25" selection-start-line="127" selection-start-column="25" selection-end-line="127" selection-end-column="25" />
+        <state relative-caret-position="218">
+          <caret line="97" column="16" lean-forward="true" selection-start-line="97" selection-start-column="16" selection-end-line="97" selection-end-column="16" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

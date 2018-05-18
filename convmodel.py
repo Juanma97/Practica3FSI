@@ -95,7 +95,7 @@ with tf.Session() as sess:
 
     sess.run(tf.local_variables_initializer())
     sess.run(tf.global_variables_initializer())
-    validationerror=[]
+    errorValidation=[]
     # Start populating the filename queue.
     coord = tf.train.Coordinator()
     threads = tf.train.start_queue_runners(coord=coord, sess=sess)
@@ -115,7 +115,7 @@ with tf.Session() as sess:
             print("Error:", sess.run(cost_valid))
         error = newError
         newError = sess.run(cost_valid)
-        validationerror.append(newError)
+        errorValidation.append(newError)
 
     save_path = saver.save(sess, "./tmp/model.ckpt")
     print("Model saved in file: %s" % save_path)
@@ -124,7 +124,7 @@ with tf.Session() as sess:
     print("Error:", sess.run(cost_test))
     plt.ylabel('Error')
     plt.xlabel('Epoch')
-    training_line, = plt.plot(validationerror)
+    training_line, = plt.plot(errorValidation)
     plt.savefig('graphics.png')
     coord.request_stop()
     coord.join(threads)
